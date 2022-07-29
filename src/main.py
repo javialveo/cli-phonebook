@@ -50,19 +50,20 @@ def setFirstConfiguration():
     myDB.createDataBase()
     myDB.createTable(f"{APP_NAME.lower()}", COLUMN_LIST)
 
-def showContacts():
+def showContactList():
   db = mdb.Database(APP_NAME, "database")
-  contacts = db.readValues(f"{APP_NAME.lower()}")
-  
-  if contacts == None:
+  contactList = db.readValues(f"{APP_NAME.lower()}")
+
+  if contactList == None:
     print("\n\nLa lista de contactos está vacía")
   else:
-    for i in contacts:
-      myContactsList = list(i)
-    
+    arrayLength = len(contactList)
+
     print("\n\nID\tNombre\t\tApellido\tCelular  \tCorreo electrónico")
-    for information in myContactsList:
-      print(f"{information}   \t", end="")
+    for i in range(arrayLength):
+      for information in contactList[i]:
+        print(f"{information}   \t", end="")
+      print("")
   
   input("\nPulsa ENTER para continuar")
   
@@ -84,7 +85,7 @@ def main():
       userOption = int(readOption)
       
       if userOption == 1:
-        showContacts()
+        showContactList()
       elif userOption == 2:
         registerContact()
     except ValueError:
