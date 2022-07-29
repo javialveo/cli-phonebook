@@ -2,7 +2,7 @@ import os
 
 import database as mdb
 
-APP_VERSION = "0.1.0"
+APP_VERSION = "0.2.1"
 APP_NAME = "cliPhoneBook"
 
 TITLE_APP = f"{APP_NAME} v{APP_VERSION}"
@@ -81,7 +81,7 @@ def main():
   while userOption != getExitMenu():
     try:
       showMainMenu()
-      readOption = input(f"Opción [1 : {getExitMenu()}]: ")
+      readOption = input(f"Opción [1-{getExitMenu()}]: ")
       userOption = int(readOption)
       
       if userOption == 1:

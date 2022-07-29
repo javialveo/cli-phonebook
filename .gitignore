@@ -1,2 +1,4 @@
 database/
 __pycache__/
+src/gui.py
+src/person.py
