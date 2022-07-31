@@ -43,7 +43,11 @@ def getExitMenu():
   return exitOption
 
 def setFirstConfiguration():
+  databasePathExist = os.path.isdir("database")
   databaseExist = os.path.isfile(f"database/{APP_NAME}.db")
+  
+  if not(databaseExist):
+    os.mkdir("database")
 
   if not(databaseExist):
     myDB = mdb.Database(APP_NAME, "database")
