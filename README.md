@@ -1,2 +1,3 @@
 # MyContactList
-mi agenda de contactos personal.
+Agenda de contactos para línea de comandos o terminal.
+
