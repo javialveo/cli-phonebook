@@ -2,16 +2,16 @@ import os
 
 import database as mdb
 
-APP_VERSION = "0.2.1"
+APP_VERSION = "0.2.2"
 APP_NAME = "cliPhoneBook"
 
 TITLE_APP = f"{APP_NAME} v{APP_VERSION}"
 
-MENU_LIST = [
+MENU_LIST = (
   "1. Mostrar lista de contactos",
   "2. Registrar Contacto",
   "3. Salir"
-]
+)
 
 COLUMN_LIST = {
   "id": "integer primary key autoincrement",
@@ -76,15 +76,19 @@ def showMainMenu():
   print(f"\t\t{TITLE_APP}")
 
   print("Escoge una de las siguientes opciones disponibles")
+  
   for menu in MENU_LIST:
     print(menu)
 
 def main():
   setFirstConfiguration()
+  
   userOption = 0
+  
   while userOption != getExitMenu():
     try:
       showMainMenu()
+      
       readOption = input(f"Opción [1-{getExitMenu()}]: ")
       userOption = int(readOption)
       
@@ -95,6 +99,5 @@ def main():
     except ValueError:
       print(f"\n\nPor favor, ingresa un número entre 1 y {getExitMenu()}")
       input("Pulsa ENTER para continuar")
-
 
 main()
