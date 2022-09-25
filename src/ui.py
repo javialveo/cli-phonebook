@@ -1,13 +1,9 @@
 class UserInterface:
   def __init__(self, titleApp):
-    self.__menuList = [
+    self.__menuList = (
       "1. Mostrar lista de contactos",
-      "2. Registrar contacto",
-      "3. Actualizar contacto",
-      "4. Eliminar contacto",
-      "5. Eliminar lista de contactos",
-      "6. Salir"
-    ]
+      "2. Salir"
+    )
     
     self.__lineBreak = "\n" * 20
     self.__titleApp = titleApp
