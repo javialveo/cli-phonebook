@@ -1,103 +1,41 @@
-import os
-
 import database as mdb
+import ui as mui
 
-APP_VERSION = "0.2.2"
 APP_NAME = "cliPhoneBook"
-
-TITLE_APP = f"{APP_NAME} v{APP_VERSION}"
-
-MENU_LIST = (
-  "1. Mostrar lista de contactos",
-  "2. Registrar Contacto",
-  "3. Salir"
-)
-
-COLUMN_LIST = {
-  "id": "integer primary key autoincrement",
-  "name": "string",
-  "lastName": "string",
-  "phoneNumber": "string",
-  "email": "string"
-}
-
-def registerContact():
-  print("\nRegistrar Contacto")
-  
-  name = input("Nombre: ")
-  lastName = input("Apellido: ")
-  telephone = input("Número de Teléfono: ")
-  email = input("Correo Electrónico: ")
-  
-  contactInformation =[name, lastName, telephone, email]
-  
-  print(contactInformation)
-  
-  db = mdb.Database(APP_NAME, "database")
-  db.insertValues(f"{APP_NAME.lower()}", contactInformation)
-  
-  input("\n\nPulsa ENTER para continuar")
-
-def getExitMenu():
-  exitOption = len(MENU_LIST)
-  return exitOption
+APP_VERSION = "0.3.0"
+APP_TITLE = f"{APP_NAME} v{APP_VERSION}"
 
 def setFirstConfiguration():
-  databasePathExist = os.path.isdir("database")
-  databaseExist = os.path.isfile(f"database/{APP_NAME}.db")
+  db = mdb.Database("cliphonebook", "database")
+  db.checkDatabaseExists()
+
+def showContacts():
+  myUI = mui.UserInterface(APP_TITLE)
+  db = mdb.Database("cliphonebook", "database")
   
-  if not(databaseExist):
-    os.mkdir("database")
-
-  if not(databaseExist):
-    myDB = mdb.Database(APP_NAME, "database")
-    myDB.createDataBase()
-    myDB.createTable(f"{APP_NAME.lower()}", COLUMN_LIST)
-
-def showContactList():
-  db = mdb.Database(APP_NAME, "database")
-  contactList = db.readValues(f"{APP_NAME.lower()}")
-
-  if contactList == None:
-    print("\n\nLa lista de contactos está vacía")
-  else:
-    arrayLength = len(contactList)
-
-    print("\n\nID\tNombre\t\tApellido\tCelular  \tCorreo electrónico")
-    for i in range(arrayLength):
-      for information in contactList[i]:
-        print(f"{information}   \t", end="")
-      print("")
+  datos = db.getAllData()
   
-  input("\nPulsa ENTER para continuar")
-  
-def showMainMenu():
-  print("\n"*20)
-  print(f"\t\t{TITLE_APP}")
-
-  print("Escoge una de las siguientes opciones disponibles")
-  
-  for menu in MENU_LIST:
-    print(menu)
+  myUI.viewContact(datos)
 
 def main():
   setFirstConfiguration()
   
-  userOption = 0
+  myUI = mui.UserInterface(APP_TITLE)
   
-  while userOption != getExitMenu():
+  userOption = 0
+  endProgram = myUI.getExitOption()
+  
+  while userOption != endProgram:
     try:
-      showMainMenu()
+      myUI.mainMenu()
       
-      readOption = input(f"Opción [1-{getExitMenu()}]: ")
+      readOption = input(f"Opción [1:{endProgram}] ")
       userOption = int(readOption)
       
       if userOption == 1:
-        showContactList()
-      elif userOption == 2:
-        registerContact()
-    except ValueError:
-      print(f"\n\nPor favor, ingresa un número entre 1 y {getExitMenu()}")
+        showContacts()
+    except:
+      print(f"\n\nPor favor ingresa un número entre 1 y {endProgram}")
       input("Pulsa ENTER para continuar")
 
 main()
