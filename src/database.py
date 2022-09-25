@@ -6,13 +6,6 @@ class Database:
     self.__namedb = namedb
     self.__databasePath = databasePath
     self.__tableName = "contactos"
-    self.__columnList = { 
-      "id": "integer primary key",
-      "name": "string",
-      "lastName": "string",
-      "phoneNumber": "string",
-      "email": "string"
-    }
   
   def checkDatabaseExists(self):
     databasePathExists = mos.path.isdir(self.__databasePath)
@@ -22,21 +15,33 @@ class Database:
       mos.mkdir(self.__databasePath)
     
     if not(databaseExists):
-      self.createDatabase()
-      self.createTable()
+      self.__createDatabase()
+      self.__createTable()
     
-  def createDatabase(self):
+  def __createDatabase(self):
     db = mdb.connect(f"{self.__databasePath}/{self.__namedb}.db")
     db.commit
     db.close()
   
-  def createTable(self):
+  def __createTable(self):
     columns = ""
+    fieldList = (
+      "id integer not null primary key", 
+      "name string", 
+      "lastName string", 
+      "phoneNumber string", 
+      "email string"
+    )
     
-    for key, values in self.__columnList.items():
-      columns += f"{key} {values}, "
+    listLength = len(fieldList)
+
+    for i in range(listLength):
+      columns += fieldList[i]
+
+      if i < listLength-1:
+        columns += ", "
     
-    sqlStatement = f"create table {self.__tableName} ({columns[:-2]})"
+    sqlStatement = f"create table {self.__tableName} ({columns})"
     
     db = mdb.connect(f"{self.__databasePath}/{self.__namedb}.db")
     cur = db.cursor()
@@ -63,7 +68,3 @@ class Database:
     else:
       return None
 
-bd = Database("cliphonebook", "database")
-datos = bd.getAllData()
-
-print(datos)
