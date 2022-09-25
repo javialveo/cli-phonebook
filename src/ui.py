@@ -5,7 +5,7 @@ class UserInterface:
       "2. Salir"
     )
     
-    self.__lineBreak = "\n" * 20
+    self.__lineBreak = "\n" * 25
     self.__titleApp = titleApp
   
   def getExitOption(self):
@@ -20,3 +20,18 @@ class UserInterface:
     print("\nEscoge una de las siguientes opciones disponibles")
     for menu in self.__menuList:
       print(menu)
+  
+  def viewContact(self, contactList=None):
+    print(self.__lineBreak)
+    print("Mostrando Lista de Contactos")
+    
+    if contactList != None:
+      print("Nombre\t\tApellido\tCelular\t\t\tCorreo Electrónico")
+      
+      for myContacts in contactList:
+        for contact in myContacts:
+          print(f"{contact}", end="\t\t")
+        print("")
+    else:
+      print("\n¡No hay contactos que mostrar!")
+    input("\n\nPulsa ENTER para continuar")
