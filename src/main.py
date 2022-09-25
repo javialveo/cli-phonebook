@@ -1,10 +1,17 @@
+import database as mdb
 import ui as mui
 
 APP_NAME = "cliPhoneBook"
 APP_VERSION = "0.3.0"
 APP_TITLE = f"{APP_NAME} v{APP_VERSION}"
 
+def setFirstConfiguration():
+  db = mdb.Database("cliphonebook", "database")
+  db.checkDatabaseExists()
+
 def main():
+  setFirstConfiguration()
+  
   myUI = mui.UserInterface(APP_TITLE)
   
   userOption = 0
