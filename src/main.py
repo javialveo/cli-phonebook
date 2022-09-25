@@ -9,6 +9,14 @@ def setFirstConfiguration():
   db = mdb.Database("cliphonebook", "database")
   db.checkDatabaseExists()
 
+def showContacts():
+  myUI = mui.UserInterface(APP_TITLE)
+  db = mdb.Database("cliphonebook", "database")
+  
+  datos = db.getAllData()
+  
+  myUI.viewContact(datos)
+
 def main():
   setFirstConfiguration()
   
@@ -24,6 +32,8 @@ def main():
       readOption = input(f"Opción [1:{endProgram}] ")
       userOption = int(readOption)
       
+      if userOption == 1:
+        showContacts()
     except:
       print(f"\n\nPor favor ingresa un número entre 1 y {endProgram}")
       input("Pulsa ENTER para continuar")
