@@ -8,11 +8,11 @@ class UserInterface:
     self.__lineBreak = "\n" * 25
     self.__titleApp = titleApp
   
-  def getExitOption(self):
+  def get_exit_option(self):
     exitOption = len(self.__menuList)
     return exitOption
   
-  def mainMenu(self):
+  def main_menu(self):
     print(self.__lineBreak)
     print(f"\t\t{self.__titleApp}")
     print("\tAgenda de contactos en línea de comandos")
@@ -21,7 +21,7 @@ class UserInterface:
     for menu in self.__menuList:
       print(menu)
   
-  def viewContact(self, contactList=None):
+  def view_contact(self, contactList=None):
     print(self.__lineBreak)
     print("Mostrando Lista de Contactos")
     

@@ -2,39 +2,39 @@ import database as mdb
 import ui as mui
 
 APP_NAME = "cliPhoneBook"
-APP_VERSION = "0.3.0"
+APP_VERSION = "0.3.1"
 APP_TITLE = f"{APP_NAME} v{APP_VERSION}"
 
-def setFirstConfiguration():
+def set_first_configuration():
   db = mdb.Database("cliphonebook", "database")
-  db.checkDatabaseExists()
+  db.check_database_exists()
 
-def showContacts():
+def show_contacts():
   myUI = mui.UserInterface(APP_TITLE)
   db = mdb.Database("cliphonebook", "database")
   
-  datos = db.getAllData()
+  datos = db.get_all_data()
   
-  myUI.viewContact(datos)
+  myUI.view_contact(datos)
 
 def main():
-  setFirstConfiguration()
+  set_first_configuration()
   
   myUI = mui.UserInterface(APP_TITLE)
   
   userOption = 0
-  endProgram = myUI.getExitOption()
+  endProgram = myUI.get_exit_option()
   
   while userOption != endProgram:
     try:
-      myUI.mainMenu()
+      myUI.main_menu()
       
       readOption = input(f"Opción [1:{endProgram}] ")
       userOption = int(readOption)
       
       if userOption == 1:
-        showContacts()
-    except:
+        show_contacts()
+    except ValueError:
       print(f"\n\nPor favor ingresa un número entre 1 y {endProgram}")
       input("Pulsa ENTER para continuar")
 

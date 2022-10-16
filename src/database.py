@@ -7,7 +7,7 @@ class Database:
     self.__databasePath = databasePath
     self.__tableName = "contactos"
   
-  def checkDatabaseExists(self):
+  def check_database_exists(self):
     databasePathExists = mos.path.isdir(self.__databasePath)
     databaseExists = mos.path.isfile(f"{self.__databasePath}/{self.__namedb}.db")
 
@@ -15,15 +15,15 @@ class Database:
       mos.mkdir(self.__databasePath)
     
     if not(databaseExists):
-      self.__createDatabase()
-      self.__createTable()
+      self.__create_database()
+      self.__create_table()
     
-  def __createDatabase(self):
+  def __create_database(self):
     db = mdb.connect(f"{self.__databasePath}/{self.__namedb}.db")
     db.commit
     db.close()
   
-  def __createTable(self):
+  def __create_table(self):
     columns = ""
     fieldList = (
       "id integer not null primary key", 
@@ -49,7 +49,7 @@ class Database:
     db.commit()
     db.close()
   
-  def getAllData(self, orderBy=None):
+  def get_all_data(self, orderBy=None):
     db = mdb.connect(f"{self.__databasePath}/{self.__namedb}.db")
     cur = db.cursor()
     
